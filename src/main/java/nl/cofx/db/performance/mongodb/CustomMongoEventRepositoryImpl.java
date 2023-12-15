@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CustomMongoEventRepositoryImpl<T, ID> implements CustomMongoEventRepository<T, ID> {
+public class CustomMongoEventRepositoryImpl implements CustomMongoEventRepository {
 
     private static final String ID_FIELD = "_id";
     private static final String SEVERITY_FIELD = "severity";
