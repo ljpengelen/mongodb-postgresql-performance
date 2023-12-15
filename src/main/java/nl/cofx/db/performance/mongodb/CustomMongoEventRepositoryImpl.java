@@ -1,6 +1,7 @@
 package nl.cofx.db.performance.mongodb;
 
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -22,7 +23,7 @@ public class CustomMongoEventRepositoryImpl implements CustomMongoEventRepositor
         query.addCriteria(Criteria.where("contractId").is(contractId));
         if (id != null && severity != null)
             query.addCriteria(new Criteria().orOperator(
-                    Criteria.where(SEVERITY_FIELD).is(severity).and(ID_FIELD).lt(id),
+                    Criteria.where(SEVERITY_FIELD).is(severity).and(ID_FIELD).lt(new ObjectId(id)),
                     Criteria.where(SEVERITY_FIELD).lt(severity)));
         query.with(Sort.by(Sort.Order.desc(SEVERITY_FIELD), Sort.Order.desc(ID_FIELD)));
         query.limit(size);

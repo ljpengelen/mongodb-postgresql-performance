@@ -3,7 +3,7 @@ package nl.cofx.db.performance.mongodb;
 import lombok.Builder;
 import lombok.Value;
 
-@Builder
+@Builder(toBuilder = true)
 @Value
 public class MongoEventsPageRequest {
 

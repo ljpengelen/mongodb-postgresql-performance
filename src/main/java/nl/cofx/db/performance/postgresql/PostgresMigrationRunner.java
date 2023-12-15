@@ -7,12 +7,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MigrationRunner {
+public class PostgresMigrationRunner {
 
     private final String url;
     private final String username;
 
-    public MigrationRunner(@Value("${spring.datasource.url}") String url,
+    public PostgresMigrationRunner(@Value("${spring.datasource.url}") String url,
             @Value("${spring.datasource.username}") String username) {
         this.url = url;
         this.username = username;

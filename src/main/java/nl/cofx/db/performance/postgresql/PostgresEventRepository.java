@@ -1,6 +1,7 @@
 package nl.cofx.db.performance.postgresql;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface PostgresEventRepository extends JpaRepository<PostgresEvent, Lo
             "ORDER BY severity DESC, id DESC " +
             "LIMIT ?4")
     List<PostgresEvent> find(String contractId, Long id, Integer severity, int size);
+
+    @Modifying
+    @Query(value = "DELETE FROM postgres_event", nativeQuery = true)
+    void deleteAll();
 }

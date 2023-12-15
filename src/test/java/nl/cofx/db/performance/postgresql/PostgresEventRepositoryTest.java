@@ -14,7 +14,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 
 @AutoConfigureTestDatabase(replace = NONE)
 @DataJpaTest
-@Import(MigrationRunner.class)
+@Import(PostgresMigrationRunner.class)
 class PostgresEventRepositoryTest {
 
     private static final String CONTRACT_ID = "contractId";
