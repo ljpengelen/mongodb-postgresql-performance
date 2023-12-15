@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
-import java.util.Comparator;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
@@ -86,11 +84,6 @@ class MongoEventRepositoryTest {
                 .severity(3)
                 .build();
         eventThree = repository.save(eventThree);
-
-        System.out.println(repository.findAll().stream()
-                .sorted(Comparator.comparing(MongoEvent::getSeverity).reversed()
-                        .thenComparing(MongoEvent::getId).reversed())
-                .toList());
 
         assertThat(repository.find(CONTRACT_ID, null, null, 1)).containsExactly(eventThree);
         assertThat(repository.find(CONTRACT_ID, eventThree.getId(), eventThree.getSeverity(), 2)).containsExactly(eventTwo, eventOne);
