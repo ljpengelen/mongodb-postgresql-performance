@@ -29,19 +29,16 @@ class MongoEventRepositoryTest {
     @Test
     void returnsEventsOrderedBySeverityAndId() {
         var eventOne = MongoEvent.builder()
-                .id("1")
                 .contractId(CONTRACT_ID)
                 .severity(0)
                 .build();
         eventOne = repository.save(eventOne);
         var eventTwo = MongoEvent.builder()
-                .id("2")
                 .contractId(CONTRACT_ID)
                 .severity(3)
                 .build();
         eventTwo = repository.save(eventTwo);
         var eventThree = MongoEvent.builder()
-                .id("3")
                 .contractId(CONTRACT_ID)
                 .severity(3)
                 .build();
@@ -72,19 +69,16 @@ class MongoEventRepositoryTest {
     @Test
     void returnsEventsByIdAndSeverity() {
         var eventOne = MongoEvent.builder()
-                .id("1")
                 .contractId(CONTRACT_ID)
                 .severity(0)
                 .build();
         eventOne = repository.save(eventOne);
         var eventTwo = MongoEvent.builder()
-                .id("2")
                 .contractId(CONTRACT_ID)
                 .severity(3)
                 .build();
         eventTwo = repository.save(eventTwo);
         var eventThree = MongoEvent.builder()
-                .id("3")
                 .contractId(CONTRACT_ID)
                 .severity(3)
                 .build();
