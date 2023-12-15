@@ -1,13 +1,18 @@
 package nl.cofx.db.performance.mongodb;
 
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataMongoTest
+@Import({LocalValidatorFactoryBean.class, MongoConfiguration.class})
 class MongoEventRepositoryTest {
 
     private static final String CONTRACT_ID = "contractId";
@@ -87,5 +92,15 @@ class MongoEventRepositoryTest {
 
         assertThat(repository.find(CONTRACT_ID, null, null, 1)).containsExactly(eventThree);
         assertThat(repository.find(CONTRACT_ID, eventThree.getId(), eventThree.getSeverity(), 2)).containsExactly(eventTwo, eventOne);
+    }
+
+    @Test
+    void rejectsEventWithoutContractId() {
+        var event = MongoEvent.builder()
+                .severity(1)
+                .build();
+        assertThatThrownBy(() -> repository.save(event))
+                .isInstanceOf(ConstraintViolationException.class)
+                .hasMessage("contractId: must not be null");
     }
 }
